@@ -50,4 +50,8 @@ Comments:
 	1)Highway empties in high capacities (>50)
 	2)We have bottleneck in low capacities (<5) (Vehicles cannot be moved to the segment that host their exit node due to inappropriate capacity)
 
+Collaborators:
+	Ioannis Charamis (https://github.com/charamis)
+	Dimitra Mavroforaki (https://github.com/dimitramav)
+
 		
