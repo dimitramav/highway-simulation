@@ -1,6 +1,3 @@
-Meli Omadas:
-	Ioannis Charamis(1115201400220)
-	Dimitra Mavroforaki(1115201400104)
 
 Compile with:
 	
@@ -8,27 +5,23 @@ Run with:
 	./main 5 5 1 0.8
 	segments' capacity=50
 
-Sxediastikes epiloges:
-	Oles oi domes dedomenwn pou xrisimopoioume periexoun deiktes se objects wste na periorisoume oso to dynaton ginetai tin klisi tou copy constructor
+Designing options: 
+	Every data structure that we use contains pointer to objects. Our goal is to call the copy constructor the least possible.
 	
-	1)list <Segment *> segs ->epitygxanetai eukoloteri prosvasi sto proigoumeno kai sto epomeno segment (to provlima tairiaze me ti logiki tis diplis
-	syndendemenis listas)
+	1)list <Segment *> segs ->easy access to previous and next segment (double linked list)
 	
-	2)vector < Vehicles *> Vehicles -> ayksomeiwnetai o arithmos twn oximatwn pou yparxoun se kathe segment 
+	2)vector < Vehicles *> Vehicles -> the number of vehicles in each segment is not the same during the simulation
 	
-	3)vector <Toll *> Tolls -> endykneitai kai i domi Array (wstoso yparxei mono sti c++11) kai gi auto epileksame vector gia na xrisimopoihsoume apokleistika typous tis
-				   stl pou prosferei efkolia sto debugging
+	3)vector <Toll *> Tolls -> data structure Array is also recommended(available only in c++11). We are using vector because stl types are compatible and easy to debug
 	
-	4)queue<Vehicle*> VehicleQueue -> taytizetai me tin logiki tis oura twn diodiwn se enan kanoniko autokinitodromo
-	
-Paradoxes:
-	1)Kathe komvos periexei toulaxiston 1 diodio
-	2)Otan ena oxima metavainei apo to ena tmima sto epomeno i katastasi etoimotitas tou allazei se not_ready. To gegonos oti itan ready na perasei sto epomeno tmima ston
-	enan kyklo, den simainei oti tha einai ready na perasei sto epomeno tmima kai ston epomeno kyklo.
-	3)Den paratiroume kamia kinitikotita ston prwto kyklo prosomoiwsis. Gia na symvoun oi allages(exodos apo to tmima h apo ton autokinitodromo) apaiteitai metavasi apo
-	not_ready -> ready, kati pou ginetai aisthito ston deytero kyklo. (vasi tis ekfwnisis oi allages efarmozontai ston epomeno kyklo).
+	4)queue<Vehicle*> VehicleQueue -> in real life cars wait in queues to pass the tolls
 
-Sximatiki apeikonisi enos autokinitodromou me 2 segments:
+We have made the admissions below:
+	1)Every node has at least one toll
+	2)When a vehicle passes to the next segment its state becomes "not_ready". The fact that it was ready to pass to the next segment does not ensure that it will be ready the next cycle of the simulation.
+	3)There is no movement during the first cycle of the simulation. Actions like exit segment or exit highway may take place during the second cycle, because vehicles state must change (not_ready->ready). Changes are also noticable during the next cycle.
+
+Schematic representation of a highway with 2 segments:
 
 	         (node2)*	-----|     
 	       //	\\           |
@@ -51,10 +44,10 @@ Sximatiki apeikonisi enos autokinitodromou me 2 segments:
        	       //        \\          |
       	      //          \\         |
 	entrance0          null-------
-(Ta onomata me ton asterisko den einai objects.To node einai int-identifier. H eksodos ekfrazetai me tin afairesi oximatwn.)
+(Names with asterisk (*) are not objects. Node is type int-identifier. Exit is implemented by subtracting vehicles.)
 
-Paratiriseis prosomoiwsis:
-	1)Gia megala capacities (>50) o autokinitodromos adeiazei
-	2)Gia mikra capacities (<5) yparxei mpotiliarisma (den yparxei xwritikotita katallili wste ta autokinita na metavoun sto tmima pou vrisketai o komvos eksodou tous)
+Comments:
+	1)Highway empties in high capacities (>50)
+	2)We have bottleneck in low capacities (<5) (Vehicles cannot be moved to the segment that host their exit node due to inappropriate capacity)
 
 		
